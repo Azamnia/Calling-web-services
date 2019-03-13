@@ -1,4 +1,4 @@
-package hello.file;
+package com.shatel.file;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,9 +17,9 @@ import java.util.Scanner;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import hello.send.Sending;
-import hello.webServices.CheckSession;
-import hello.webServices.Login;
+import com.shatel.send.Sending;
+import com.shatel.webServices.CheckSession;
+import com.shatel.webServices.Login;
 
 @Component
 public class Sessions {
