@@ -1,4 +1,4 @@
-package hello.webServices;
+package com.shatel.webServices;
 
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPBody;
@@ -13,7 +13,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.NodeList;
 
-import hello.file.Numbers;
+import com.shatel.file.Numbers;
 
 
 
