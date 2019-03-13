@@ -1,4 +1,4 @@
-package hello.send;
+package com.shatel.send;
 
 import java.io.IOException;
 
@@ -6,11 +6,11 @@ import javax.xml.soap.SOAPConnection;
 import javax.xml.soap.SOAPConnectionFactory;
 import javax.xml.soap.SOAPMessage;
 
-import hello.file.Numbers;
-import hello.file.Write;
-import hello.webServices.CheckSession;
-import hello.webServices.Login;
-import hello.webServices.ReleaseMsisdn;
+import com.shatel.file.Numbers;
+import com.shatel.file.Write;
+import com.shatel.webServices.CheckSession;
+import com.shatel.webServices.Login;
+import com.shatel.webServices.ReleaseMsisdn;
 
 
 
