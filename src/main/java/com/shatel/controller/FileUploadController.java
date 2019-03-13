@@ -1,4 +1,4 @@
-package hello.controller;
+package com.shatel.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,9 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import hello.file.Numbers;
-import hello.storage.StorageFileNotFoundException;
-import hello.storage.StorageService;
+import com.shatel.file.Numbers;
+import com.shatel.storage.StorageFileNotFoundException;
+import com.shatel.storage.StorageService;
 
 @Controller
 public class FileUploadController {
