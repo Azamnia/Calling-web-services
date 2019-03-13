@@ -1,4 +1,4 @@
-package hello.file;
+package com.shatel.file;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
-import hello.controller.FileUploadController;
-import hello.send.Sending;
-import hello.webServices.ReleaseMsisdn;
+import com.shatel.controller.FileUploadController;
+import com.shatel.send.Sending;
+import com.shatel.webServices.ReleaseMsisdn;
 
 import java.time.LocalDateTime;
 
