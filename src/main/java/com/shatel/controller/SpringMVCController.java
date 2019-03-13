@@ -1,4 +1,4 @@
-package hello.controller;
+package com.shatel.controller;
 
 import java.io.IOException;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import hello.send.Sending;
-import hello.storage.StorageService;
+import com.shatel.send.Sending;
+import com.shatel.storage.StorageService;
 
 @Controller
 public class SpringMVCController 
