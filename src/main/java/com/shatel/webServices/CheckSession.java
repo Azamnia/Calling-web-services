@@ -1,4 +1,4 @@
-package hello.webServices;
+package com.shatel.webServices;
 
 
 import javax.xml.soap.MessageFactory;
