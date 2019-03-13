@@ -1,5 +1,6 @@
 package hello.webServices;
 
+
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPBody;
 import javax.xml.soap.SOAPElement;
@@ -13,16 +14,13 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.NodeList;
 
-import hello.file.Numbers;
-
-
-
-public class ReleaseMsisdn {
+public class CheckSession {
 	
-	private static String session;
-	private static String number;
+private static String check;
+private static String time;
 	
-public static SOAPMessage createSoapRequest() throws Exception{
+
+	public static SOAPMessage createSoapRequest() throws Exception{
 		
 		//create SOAPMessage instance (baraye sakhte yek nemoone az soap message)
 		 MessageFactory messageFactory = MessageFactory.newInstance();
@@ -41,21 +39,19 @@ public static SOAPMessage createSoapRequest() throws Exception{
 		 SOAPBody soapBody = soapEnvelope.getBody();
 		 
 		 //represents the element of SOAPMessage
-		 SOAPElement soapElement = soapBody.addChildElement("releaseMsisdn", "ws7");
+		 SOAPElement soapElement = soapBody.addChildElement("checkRemainingSessions", "ws7");
 		 
 		 //make Message's body
 		 SOAPElement element1 = soapElement.addChildElement("wsSessionId");
 		 element1.addTextNode(Login.getSession());
 		 
-		 SOAPElement element2 = soapElement.addChildElement("msisdn");
-		 element2.addTextNode(Numbers.getNumbers());
 		 soapMessage.saveChanges();
 		 
 		 System.out.println("----------SOAP Request------------");
 		 soapMessage.writeTo(System.out);
 		 return soapMessage;
-
-}
+	 }
+	
 	 public static void createSoapResponse(SOAPMessage soapResponse) throws Exception  {
 		 
 		 	//create Transformer
@@ -68,40 +64,44 @@ public static SOAPMessage createSoapRequest() throws Exception{
 			Source sourceContent = soapResponse.getSOAPPart().getContent();
 			
 			System.out.println("\n----------SOAP Response-----------");
+			
+			//holder of transformer result that can be an XML
 			StreamResult result = new StreamResult(System.out);
 			transformer.transform(sourceContent, result);
 			
 			SOAPBody body = soapResponse .getSOAPBody();
 			
-			NodeList returnList = body.getElementsByTagName("wsSessionId");
+			// processing nodes to get SessionId
+			NodeList returnList = body.getElementsByTagName("resultCode");
 			for (int k = 0; k < returnList.getLength(); k++) {
 			    NodeList innerResultList = returnList.item(k).getChildNodes();
-			    setSession(innerResultList.item(k).getTextContent());
-				}
+			    setCheck(innerResultList.item(k).getTextContent());
+		 }
 			
-			NodeList returnList2 = body.getElementsByTagName("callMsg");
+			NodeList returnList2 = body.getElementsByTagName("nextAvailableDate");
 			for (int k = 0; k < returnList2.getLength(); k++) {
 			    NodeList innerResultList = returnList2.item(k).getChildNodes();
-			    setNumber(innerResultList.item(k).getTextContent());
-				}
-			
+			    setTime(innerResultList.item(k).getTextContent());
 		 }
-	public static String getSession() {
-		return session;
+			
+	 }
+
+	public static String getCheck() {
+		return check;
 	}
-	public static void setSession(String session) {
-		ReleaseMsisdn.session = session;
-	}
-	
-	public static String getNumber() {
-		return number;
-	}
-	public static void setNumber(String number) {
-		ReleaseMsisdn.number = number;
+
+	public static void setCheck(String check) {
+		CheckSession.check = check;
 	}
 	
+	public static String getTime() {
+		return time;
+	}
+
+	public static void setTime(String time) {
+		CheckSession.time = time;
+	}
+
+
 
 }
-
-
-

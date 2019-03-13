@@ -15,14 +15,11 @@ import org.w3c.dom.NodeList;
 
 import hello.file.Numbers;
 
-
-
-public class ReleaseMsisdn {
+public class UpdateLanguage {
 	
-	private static String session;
 	private static String number;
 	
-public static SOAPMessage createSoapRequest() throws Exception{
+	public static SOAPMessage createSoapRequest() throws Exception{
 		
 		//create SOAPMessage instance (baraye sakhte yek nemoone az soap message)
 		 MessageFactory messageFactory = MessageFactory.newInstance();
@@ -41,21 +38,25 @@ public static SOAPMessage createSoapRequest() throws Exception{
 		 SOAPBody soapBody = soapEnvelope.getBody();
 		 
 		 //represents the element of SOAPMessage
-		 SOAPElement soapElement = soapBody.addChildElement("releaseMsisdn", "ws7");
+		 SOAPElement soapElement = soapBody.addChildElement("updateSubscriptionLanguage", "ws7");
 		 
 		 //make Message's body
 		 SOAPElement element1 = soapElement.addChildElement("wsSessionId");
 		 element1.addTextNode(Login.getSession());
 		 
-		 SOAPElement element2 = soapElement.addChildElement("msisdn");
+		 SOAPElement element2 = soapElement.addChildElement("subscriptionID");
 		 element2.addTextNode(Numbers.getNumbers());
+		 
+		 SOAPElement element3 = soapElement.addChildElement("language");
+		 element3.addTextNode("fa-IR");
+		 
 		 soapMessage.saveChanges();
 		 
 		 System.out.println("----------SOAP Request------------");
 		 soapMessage.writeTo(System.out);
 		 return soapMessage;
-
-}
+	 }
+	
 	 public static void createSoapResponse(SOAPMessage soapResponse) throws Exception  {
 		 
 		 	//create Transformer
@@ -68,40 +69,27 @@ public static SOAPMessage createSoapRequest() throws Exception{
 			Source sourceContent = soapResponse.getSOAPPart().getContent();
 			
 			System.out.println("\n----------SOAP Response-----------");
+			
+			//holder of transformer result that can be an XML
 			StreamResult result = new StreamResult(System.out);
 			transformer.transform(sourceContent, result);
 			
 			SOAPBody body = soapResponse .getSOAPBody();
 			
-			NodeList returnList = body.getElementsByTagName("wsSessionId");
+			// processing nodes to get SessionId
+			NodeList returnList = body.getElementsByTagName("callMsg");
 			for (int k = 0; k < returnList.getLength(); k++) {
 			    NodeList innerResultList = returnList.item(k).getChildNodes();
-			    setSession(innerResultList.item(k).getTextContent());
-				}
-			
-			NodeList returnList2 = body.getElementsByTagName("callMsg");
-			for (int k = 0; k < returnList2.getLength(); k++) {
-			    NodeList innerResultList = returnList2.item(k).getChildNodes();
 			    setNumber(innerResultList.item(k).getTextContent());
-				}
-			
 		 }
-	public static String getSession() {
-		return session;
-	}
-	public static void setSession(String session) {
-		ReleaseMsisdn.session = session;
-	}
-	
-	public static String getNumber() {
-		return number;
-	}
-	public static void setNumber(String number) {
-		ReleaseMsisdn.number = number;
-	}
-	
+			
+	 }
+	 
+		public static String getNumber() {
+			return number;
+		}
+		public static void setNumber(String number) {
+			UpdateLanguage.number = number;
+		}
 
 }
-
-
-

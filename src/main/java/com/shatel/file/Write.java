@@ -1,40 +1,79 @@
-package com.shatel.file;
+package hello.file;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+
+import hello.controller.FileUploadController;
+import hello.send.Sending;
+import hello.webServices.ReleaseMsisdn;
+
+import java.time.LocalDateTime;
 
 
-import com.shatel.webServices.ReleaseMsisdn;
 
 
 public class Write {
-	
+	static int random;
 	public static void main(String[] args) throws IOException {
 		
-        String data = ReleaseMsisdn.getNumber();
+		String data;
 
-        writeUsingOutputStream(data);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now();  
+		
+		//Prepare results for writing in file    
+		if (Numbers.getCount() == Sending.c) {	
+			
+			Random rand = new Random(); 
+			random = rand.nextInt(1000);
+			data = "Starts at "+dtf.format(now)+"\r\n"+ReleaseMsisdn.getNumber() +"   "+ Numbers.num;
+			
+		}else if(Sending.c == 1) {
+			
+			 data = ReleaseMsisdn.getNumber() +"   "+ Numbers.num+"\r\n"+"Ends at "+dtf.format(now);
+			 
+		}else{
+			
+			data = ReleaseMsisdn.getNumber() +"   "+ Numbers.num;
+		}
+		
+		String path = FileUploadController.getPath().toString().replace("file:/", "");
+        String filePath = path.replace(".txt", "") + "_Log_" + random + ".txt";
+
+        appendUsingBufferedWriter(filePath, data);
         
 
         System.out.println("DONE");
     }
 	
-	private static void writeUsingOutputStream(String data) {
-        OutputStream os = null;
-        try {
-            os = new FileOutputStream(new File("E://result.txt"));
-            os.write(data.getBytes(), 0, data.length());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally{
-            try {
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	private static void appendUsingBufferedWriter(String filePath, String text) {
+		File file = new File(filePath);
+		FileWriter fr = null;
+		BufferedWriter br = null;
+		try {
+			// to append to file, you need to initialize FileWriter using below constructor
+			fr = new FileWriter(file, true);
+			br = new BufferedWriter(fr);
+			
+				br.newLine();
+				// you can use write or append method
+				br.write(text);
+			
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+				fr.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }

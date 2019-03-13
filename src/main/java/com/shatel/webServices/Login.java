@@ -1,4 +1,4 @@
-package com.shatel.webServices;
+package hello.webServices;
 
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPBody;
@@ -40,10 +40,10 @@ private static String session;
 		 
 		 //make Message's body
 		 SOAPElement element1 = soapElement.addChildElement("userName");
-		 element1.addTextNode("bssTest");
+		 element1.addTextNode("BSSTest2");
 		 
 		 SOAPElement element2 = soapElement.addChildElement("pass");
-		 element2.addTextNode("bssTest");
+		 element2.addTextNode("BSSTest2");
 		 
 		 SOAPElement element3 = soapElement.addChildElement("brandID");
 		 element3.addTextNode("Shatel");
@@ -94,5 +94,3 @@ private static String session;
 
 
 }
-
-
