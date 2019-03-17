@@ -12,6 +12,19 @@
 			<input type="submit" value="Update Language" />
 		</form>
 	</div>
+	
+	<div>
+		<form method="POST" enctype="multipart/form-data" action="/updateSubscriptionProfileServices">
+			<input type="submit" value="Update Subscription Profile Services" />
+		</form>
+	</div>
+	
+	<div>
+		<form method="POST" enctype="multipart/form-data" action="/cancelCallOrder">
+			<input type="submit" value="Cancel Call Order" />
+		</form>
+	</div>
+	
 
 	<div th:if="${message}">
 		<h2 th:text="${message}"/>
