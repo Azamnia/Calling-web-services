@@ -16,7 +16,7 @@ import hello.webServices.UpdateLanguage;
 import hello.webServices.UpdateSubscriptionProfileServices;
 
 
-
+//Create SOAPConnection and send the request to the Web Service
 public class Sending  {
 	
 	public static int c;

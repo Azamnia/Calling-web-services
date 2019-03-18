@@ -110,6 +110,7 @@ public class Write {
         System.out.println("DONE");
     }
 	
+	//For writing in the file
 	private static void appendUsingBufferedWriter(String filePath, String text) {
 		File file = new File(filePath);
 		FileWriter fr = null;

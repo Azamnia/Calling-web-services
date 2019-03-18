@@ -62,7 +62,7 @@ public class Sessions {
 		}
 	}
 	
-	//read the last SessionId
+	//Read the last SessionId and check it if it is OK or not
 	public static String checking () throws Exception {
 		
 		File text  = new File("E:/sessions.txt");
@@ -99,6 +99,7 @@ public class Sessions {
 		}
 	}
 	
+	//Calculate the remaining time for the SessionId
 	public static void timing() throws ParseException {
 		
         //Get the expiration time

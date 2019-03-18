@@ -26,6 +26,7 @@ public class SpringMVCController
     @PostMapping("/releaseMsisdn")
     public String releaseMsisdn() throws IOException {
     	
+    	//Set the type of method for writing in the file
     	setMethod("msisdn");
     	Sending.msisdn();    	
     	return "redirect:/";

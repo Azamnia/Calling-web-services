@@ -24,6 +24,7 @@ public class Numbers {
 	        
 	    }
 
+	 //For reading the input file and put them in a List
 	private static void readUsingScanner(String filePath) throws IOException {
 			count = 0;
 	        Path path = Paths.get(filePath);
@@ -42,6 +43,7 @@ public class Numbers {
 	    scanner.close();
     }
 	
+	//Get List's item one by one
 	public static String getNumbers() {
 		for (String str : line) {
 			System.out.println(str);
