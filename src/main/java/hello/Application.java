@@ -21,7 +21,7 @@ public class Application {
         
         //At first, it checked if we have a SessionId or not
         Sessions.checking();
-       
+
     }
 
     @Bean

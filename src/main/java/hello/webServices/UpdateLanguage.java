@@ -13,6 +13,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.NodeList;
 
+import hello.controller.SpringMVCController;
 import hello.file.Numbers;
 
 public class UpdateLanguage {
@@ -48,7 +49,7 @@ public class UpdateLanguage {
 		 element2.addTextNode(Numbers.getNumbers());
 		 
 		 SOAPElement element3 = soapElement.addChildElement("language");
-		 element3.addTextNode("fa-IR");
+		 element3.addTextNode(SpringMVCController.getLanguage());
 		 
 		 soapMessage.saveChanges();
 		 

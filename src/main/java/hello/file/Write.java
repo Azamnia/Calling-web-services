@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 import hello.controller.FileUploadController;
+import hello.controller.SpringMVCController;
 import hello.send.Sending;
 import hello.webServices.CancelCallOrder;
 import hello.webServices.ReleaseMsisdn;
@@ -20,85 +21,82 @@ import java.time.LocalDateTime;
 
 
 public class Write {
-	static int random;
+	private static int random;
+	private static String data;
+
 	public static void main(String[] args) throws IOException {
 		
-		String data = null ;
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now();  
 		
 		//Prepare results for writing in file according to methode's type
-		switch (Sending.getMethod()) {
-		case "cancelCallOrder":
-			
+		switch (SpringMVCController.getMethod()) {
+		case "cancelCallOrder":	
 			if (Numbers.getCount() == Sending.c) {	
 				
 				Random rand = new Random(); 
 				random = rand.nextInt(1000);
-				data = "Starts at "+dtf.format(now)+"\r\n"+ CancelCallOrder.getResult() +"   "+ Numbers.num;
+				setData("Starts at "+dtf.format(now)+"\r\n"+ CancelCallOrder.getResult() +"   "+ Numbers.num);
 				
 			}else if(Sending.c == 1) {
 				
-				 data = CancelCallOrder.getResult() +"   "+ Numbers.num+"\r\n"+"Ends at "+dtf.format(now);
+				setData(CancelCallOrder.getResult() +"   "+ Numbers.num+"\r\n"+"Ends at "+dtf.format(now));
 				 
 			}else{
 				
-				data = CancelCallOrder.getResult() +"   "+ Numbers.num;
+				setData(CancelCallOrder.getResult() +"   "+ Numbers.num);
 			}
 			
 			break;
-		case "updateSubscriptionProfileServices":
-			
+		case "updateSubscriptionProfileServices":	
 			if (Numbers.getCount() == Sending.c) {	
 				
 				Random rand = new Random(); 
 				random = rand.nextInt(1000);
-				data = "Starts at "+dtf.format(now)+"\r\n"+UpdateSubscriptionProfileServices.getResult() +"   "+ Numbers.num;
+				setData("Starts at "+dtf.format(now)+"\r\n"+UpdateSubscriptionProfileServices.getResult() +"   "+ Numbers.num);
 				
 			}else if(Sending.c == 1) {
 				
-				 data = UpdateSubscriptionProfileServices.getResult() +"   "+ Numbers.num+"\r\n"+"Ends at "+dtf.format(now);
+				setData(UpdateSubscriptionProfileServices.getResult() +"   "+ Numbers.num+"\r\n"+"Ends at "+dtf.format(now));
 				 
 			}else{
 				
-				data = UpdateSubscriptionProfileServices.getResult() +"   "+ Numbers.num;
+				setData(UpdateSubscriptionProfileServices.getResult() +"   "+ Numbers.num);
 			}
 			
 			break;
 		case "msisdn":
-	
 			if (Numbers.getCount() == Sending.c) {	
 				
 				Random rand = new Random(); 
 				random = rand.nextInt(1000);
-				data = "Starts at "+dtf.format(now)+"\r\n"+ReleaseMsisdn.getNumber() +"   "+ Numbers.num;
+				setData("Starts at "+dtf.format(now)+"\r\n"+ReleaseMsisdn.getNumber() +"   "+ Numbers.num);
 				
 			}else if(Sending.c == 1) {
 				
-				 data = ReleaseMsisdn.getNumber() +"   "+ Numbers.num+"\r\n"+"Ends at "+dtf.format(now);
+				setData(ReleaseMsisdn.getNumber() +"   "+ Numbers.num+"\r\n"+"Ends at "+dtf.format(now));
 				 
 			}else{
 				
-				data = ReleaseMsisdn.getNumber() +"   "+ Numbers.num;
+				setData(ReleaseMsisdn.getNumber() +"   "+ Numbers.num);
 			}
 			
 			break;
 		case "updateLanguage":
-			
 			if (Numbers.getCount() == Sending.c) {	
 				
 				Random rand = new Random(); 
 				random = rand.nextInt(1000);
-				data = "Starts at "+dtf.format(now)+"\r\n"+UpdateLanguage.getNumber() +"   "+ Numbers.num;
+				setData("Starts at "+dtf.format(now)+"\r\n"+UpdateLanguage.getNumber() +"   "+ Numbers.num);
 				
 			}else if(Sending.c == 1) {
 				
-				 data = UpdateLanguage.getNumber() +"   "+ Numbers.num+"\r\n"+"Ends at "+dtf.format(now);
+				setData(UpdateLanguage.getNumber() +"   "+ Numbers.num+"\r\n"+"Ends at "+dtf.format(now));
 				 
 			}else{
 				
-				data = UpdateLanguage.getNumber() +"   "+ Numbers.num;
+				setData(UpdateLanguage.getNumber() +"   "+ Numbers.num);
 			}
 			
 			break;
@@ -108,9 +106,7 @@ public class Write {
 		String path = FileUploadController.getPath().toString().replace("file:/", "");
         String filePath = path.replace(".txt", "") + "_Log_" + random + ".txt";
 
-        appendUsingBufferedWriter(filePath, data);
-        
-
+        appendUsingBufferedWriter(filePath, getData());
         System.out.println("DONE");
     }
 	
@@ -139,5 +135,15 @@ public class Write {
 			}
 		}
 	}
+
+	public static String getData() {
+		return data;
+	}
+
+	public static void setData(String data) {
+		Write.data = data;
+	}
+	
+	
 
 }

@@ -11,7 +11,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.scheduling.annotation.Scheduled;
@@ -25,11 +27,13 @@ import hello.webServices.Login;
 public class Sessions {
 	
 	private static Duration diff;
+	private static List<String> line = new ArrayList<String>();
+	private static String sess;
 	
 	public static void main(String[] args) throws Exception {
 		
 		String data = Login.getSession();
-        appendUsingBufferedWriter("C:/Users/sessions.txt", data);
+        appendUsingBufferedWriter("E:/sessions.txt", data);
         System.out.println("DONE");	
 		
 	}
@@ -61,15 +65,20 @@ public class Sessions {
 	//read the last SessionId
 	public static String checking () throws Exception {
 		
-		String fileName = "C:/Users/sessions.txt";
-		Scanner scanner = new Scanner(fileName);
-		String line = scanner.nextLine();
+		File text  = new File("E:/sessions.txt");
+		Scanner scanner = new Scanner(text);
+		line.add(scanner.nextLine());
 		scanner.close();
+		for (String str : line) {
+			System.out.println(str);
+			setSess(str);
+		}
 		
 		//Check it
-		Login.setSession(line);
+		Login.setSession(getSess());
 		Sending.checkSession();
-		if( CheckSession.getCheck() != "OK") {
+		
+		if(!(CheckSession.getCheck().equals("OK"))) {
 			
 			Sending.login();
 			main(null);
@@ -79,15 +88,14 @@ public class Sessions {
 			
 			timing();
 			Duration d = Duration.ofMinutes(30);
-			
 			if(getDiff().compareTo(d) == -1 || getDiff().compareTo(d) == 0) {
-				
+
 				Sending.login();
 				main(null);
 				
 			}
 			
-			return line;
+			return Login.getSession();
 		}
 	}
 	
@@ -95,7 +103,7 @@ public class Sessions {
 		
         //Get the expiration time
         String string = CheckSession.getTime();
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
         Date date = format.parse(string);
         System.out.println(date);
 
@@ -143,6 +151,13 @@ public class Sessions {
 		Sessions.diff = diff;
 	}
 	
+	public static String getSess() {
+		return sess;
+	}
+
+	public static void setSess(String sess) {
+		Sessions.sess = sess;
+	}
 	
 
 }

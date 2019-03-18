@@ -1,6 +1,7 @@
 package hello.controller;
 
 import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,8 @@ public class SpringMVCController
 {
 	
 	private final StorageService storageService;
-
+	private static String language;
+	private static String method;
 	
     @Autowired
     public SpringMVCController(StorageService storageService) {
@@ -23,23 +25,28 @@ public class SpringMVCController
 
     @PostMapping("/releaseMsisdn")
     public String releaseMsisdn() throws IOException {
-        
+    	
+    	setMethod("msisdn");
     	Sending.msisdn();    	
     	return "redirect:/";
     	
-    }
+    }  
     
     @PostMapping("/updateLanguage")
-    public String updateLanguage() throws IOException {
-        
+    public String updateLanguage(HttpServletRequest request) throws IOException {
+    	
+    	setMethod("updateLanguage");
+    	setLanguage(request.getParameter("language"));		
+    	System.out.println(getLanguage());
     	Sending.updateLanguage();    	
     	return "redirect:/";
-    	
+
     }
     
     @PostMapping("/updateSubscriptionProfileServices")
     public String updateSubscriptionProfileServices() throws IOException {
-        
+    	
+    	setMethod("updateSubscriptionProfileServices");
     	Sending.updateSubscriptionProfileServices();    	
     	return "redirect:/";
     	
@@ -48,10 +55,26 @@ public class SpringMVCController
     @PostMapping("/cancelCallOrder")
     public String cancelCallOrder() throws IOException {
         
+    	setMethod("cancelCallOrder");
     	Sending.cancelCallOrder();    	
     	return "redirect:/";
     	
     }
 
+	public static String getLanguage() {
+		return language;
+	}
+
+	public static void setLanguage(String language) {
+		SpringMVCController.language = language;
+	}
+	
+	public static String getMethod() {
+		return method;
+	}
+
+	public static void setMethod(String method) {
+		SpringMVCController.method = method;
+	}
 
 }

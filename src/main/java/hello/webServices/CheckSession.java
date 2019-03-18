@@ -39,7 +39,7 @@ private static String time;
 		 SOAPBody soapBody = soapEnvelope.getBody();
 		 
 		 //represents the element of SOAPMessage
-		 SOAPElement soapElement = soapBody.addChildElement("checkRemainingSessions", "ws7");
+		 SOAPElement soapElement = soapBody.addChildElement("getExpirationDate", "ws7");
 		 
 		 //make Message's body
 		 SOAPElement element1 = soapElement.addChildElement("wsSessionId");
@@ -78,10 +78,12 @@ private static String time;
 			    setCheck(innerResultList.item(k).getTextContent());
 		 }
 			
-			NodeList returnList2 = body.getElementsByTagName("nextAvailableDate");
+			NodeList returnList2 = body.getElementsByTagName("item");
 			for (int k = 0; k < returnList2.getLength(); k++) {
 			    NodeList innerResultList = returnList2.item(k).getChildNodes();
 			    setTime(innerResultList.item(k).getTextContent());
+			    System.out.println(getTime());
+			    System.out.println(getCheck());
 		 }
 			
 	 }

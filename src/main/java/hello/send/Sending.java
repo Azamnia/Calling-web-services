@@ -20,11 +20,8 @@ import hello.webServices.UpdateSubscriptionProfileServices;
 public class Sending  {
 	
 	public static int c;
-	private static String method;
 	
 	public static void login () {
-		
-		setMethod("login");
 		
 		 try{
 		        
@@ -50,8 +47,6 @@ public class Sending  {
 	
 	public static void checkSession () {
 		
-		setMethod("checkSession");
-		
 		 try{
 		        
 		        //create SOAPConnection
@@ -76,14 +71,12 @@ public class Sending  {
 	
 	public static void msisdn() throws IOException {
 		
-		setMethod("msisdn");
-		
 		System.out.println("sdsdasdsd");
 		 c = Numbers.getCount();
 		
 		 checkSession();
 		 
-		if(CheckSession.getCheck() != "OK") {
+		if(!(CheckSession.getCheck().equals("OK"))) {
 				
 				login();
 				
@@ -114,14 +107,12 @@ public class Sending  {
 	
 	public static void updateLanguage() throws IOException {
 		
-		setMethod("updateLanguage");
-		
 		System.out.println("sdsdasdsd");
 		 c = Numbers.getCount();
 		
 		 checkSession();
 		 
-		if(CheckSession.getCheck() != "OK") {
+		if(!(CheckSession.getCheck().equals("OK"))) {
 				
 				login();
 				
@@ -152,14 +143,12 @@ public class Sending  {
 	
 	public static void updateSubscriptionProfileServices() throws IOException {
 		
-		setMethod("updateSubscriptionProfileServices");
-		
 		System.out.println("sdsdasdsd");
 		 c = Numbers.getCount();
 		
 		 checkSession();
 		 
-		if(CheckSession.getCheck() != "OK") {
+		if(!(CheckSession.getCheck().equals("OK"))) {
 				
 				login();
 				
@@ -190,14 +179,12 @@ public class Sending  {
 	
 	public static void cancelCallOrder() throws IOException {
 		
-		setMethod("cancelCallOrder");
-		
 		System.out.println("sdsdasdsd");
 		 c = Numbers.getCount();
 		
 		 checkSession();
 		 
-		if(CheckSession.getCheck() != "OK") {
+		if(!(CheckSession.getCheck().equals("OK"))) {
 				
 				login();
 				
@@ -225,14 +212,5 @@ public class Sending  {
 		}
 		}while(c > 0);
 	}
-
-	public static String getMethod() {
-		return method;
-	}
-
-	public static void setMethod(String method) {
-		Sending.method = method;
-	}
-	
 	
 }
