@@ -78,7 +78,7 @@ public class Sessions {
 		Login.setSession(getSess());
 		Sending.checkSession();
 		
-		if(!(CheckSession.getCheck().equals("OK"))) {
+		if(CheckSession.getCheck() == null || !(CheckSession.getCheck().equals("OK"))) {
 			
 			Sending.login();
 			main(null);
