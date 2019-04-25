@@ -33,7 +33,7 @@ public class Sessions {
 	public static void main(String[] args) throws Exception {
 		
 		String data = Login.getSession();
-        appendUsingBufferedWriter("E:/sessions.txt", data);
+        appendUsingBufferedWriter("C:/Users/sessions.txt", data);
         System.out.println("DONE");	
 		
 	}
@@ -62,10 +62,10 @@ public class Sessions {
 		}
 	}
 	
-	//Read the last SessionId and check it if it is OK or not
+	//read the last SessionId
 	public static String checking () throws Exception {
 		
-		File text  = new File("E:/sessions.txt");
+		File text = new File ("C:/Users/sessions.txt");
 		Scanner scanner = new Scanner(text);
 		line.add(scanner.nextLine());
 		scanner.close();
@@ -73,12 +73,11 @@ public class Sessions {
 			System.out.println(str);
 			setSess(str);
 		}
-		
+
 		//Check it
 		Login.setSession(getSess());
 		Sending.checkSession();
-		
-		if(CheckSession.getCheck() == null || !(CheckSession.getCheck().equals("OK"))) {
+	if(CheckSession.getCheck() == null || !(CheckSession.getCheck().equals("OK"))) {
 			
 			Sending.login();
 			main(null);
@@ -151,7 +150,7 @@ public class Sessions {
 	public static void setDiff(Duration diff) {
 		Sessions.diff = diff;
 	}
-	
+
 	public static String getSess() {
 		return sess;
 	}
@@ -159,6 +158,7 @@ public class Sessions {
 	public static void setSess(String sess) {
 		Sessions.sess = sess;
 	}
+	
 	
 
 }

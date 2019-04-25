@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import hello.file.ChangeName;
 import hello.file.Sessions;
 import hello.storage.StorageProperties;
 import hello.storage.StorageService;
@@ -21,7 +22,6 @@ public class Application {
         
         //At first, it checked if we have a SessionId or not
         Sessions.checking();
-
     }
 
     @Bean

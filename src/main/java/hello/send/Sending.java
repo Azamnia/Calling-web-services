@@ -8,6 +8,7 @@ import javax.xml.soap.SOAPMessage;
 
 import hello.file.Numbers;
 import hello.file.Write;
+import hello.webServices.AddPackagesSimple;
 import hello.webServices.CancelCallOrder;
 import hello.webServices.CheckSession;
 import hello.webServices.Login;
@@ -16,7 +17,7 @@ import hello.webServices.UpdateLanguage;
 import hello.webServices.UpdateSubscriptionProfileServices;
 
 
-//Create SOAPConnection and send the request to the Web Service
+
 public class Sending  {
 	
 	public static int c;
@@ -30,7 +31,7 @@ public class Sending  {
 				
 				//to send the message directly
 				SOAPConnection soapConnection = soapConnectionFactory.createConnection();		
-				String url2 = "https://pre.shatelmobile.ir/externalclient/services/access/v7.0?wsdl";
+				String url2 = "http://172.16.2.15:8118/externalclient/services/access/v7.0?wsdl";
 				
 				SOAPMessage soapRequest2 = Login.createSoapRequest();
 				
@@ -54,7 +55,7 @@ public class Sending  {
 				
 				//to send the message directly
 				SOAPConnection soapConnection = soapConnectionFactory.createConnection();		
-				String url2 = "https://pre.shatelmobile.ir/externalclient/services/access/v7.0?wsdl";
+				String url2 = "http://172.16.2.15:8118/externalclient/services/access/v7.0?wsdl";
 				
 				SOAPMessage soapRequest2 = CheckSession.createSoapRequest();
 				
@@ -89,7 +90,7 @@ public class Sending  {
 			SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
 		
 			SOAPConnection soapConnection = soapConnectionFactory.createConnection();
-			String url = "https://pre.shatelmobile.ir/externalclient/services/inventory/v7.2?wsdl";
+			String url = "http://172.16.2.15:8118/externalclient/services/inventory/v7.3?wsdl";
 		
 			SOAPMessage soapRequest = ReleaseMsisdn.createSoapRequest();
 			SOAPMessage soapResponse = soapConnection.call(soapRequest, url);
@@ -125,7 +126,7 @@ public class Sending  {
 			SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
 		
 			SOAPConnection soapConnection = soapConnectionFactory.createConnection();
-			String url = "https://pre.shatelmobile.ir/externalclient/services/subscriptionbasic/v7.3?wsdl";
+			String url = "http://172.16.2.15:8118/externalclient/services/subscriptionbasic/v7.3?wsdl";
 		
 			SOAPMessage soapRequest = UpdateLanguage.createSoapRequest();
 			SOAPMessage soapResponse = soapConnection.call(soapRequest, url);
@@ -211,6 +212,42 @@ public class Sending  {
 		     e.printStackTrace();
 		}
 		}while(c > 0);
+	}
+	
+	public static void addPackagesSimple() throws IOException {
+		
+//		System.out.println("sdsdasdsd");
+//		 c = Csv.getCount();//bayad beshmare tedad map haee ke mishe ro bad bezare to Number.setCount()
+		
+		 checkSession();
+		 
+		if(!(CheckSession.getCheck().equals("OK"))) {
+				
+				login();
+				
+			}
+		 
+
+			
+		try{
+
+			SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
+		
+			SOAPConnection soapConnection = soapConnectionFactory.createConnection();
+			String url = "http://172.16.2.15:8118/externalclient/services/subscriptionorder/v7.3?wsdl";
+		
+			SOAPMessage soapRequest = AddPackagesSimple.createSoapRequest();
+			SOAPMessage soapResponse = soapConnection.call(soapRequest, url);
+			AddPackagesSimple.createSoapResponse(soapResponse);
+			
+			Write.main(null);//baraye writesh ham bayad noe khasi bashe
+			
+//			c--;
+			
+		}catch (Exception e) {
+		     e.printStackTrace();
+		}
+
 	}
 	
 }

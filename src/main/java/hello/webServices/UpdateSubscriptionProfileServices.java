@@ -47,31 +47,37 @@ public class UpdateSubscriptionProfileServices {
 		 SOAPElement element2 = soapElement.addChildElement("subscriptionID");
 		 element2.addTextNode(Numbers.getNumbers());
 		 
-		 SOAPElement element3 = soapElement.addChildElement("active");
+		 SOAPElement element13 = soapElement.addChildElement("services");
+		 
+		 
+		 SOAPElement element3 = element13.addChildElement("active");
 		 element3.addTextNode("false");
 		 
-		 SOAPElement element4 = soapElement.addChildElement("extBool");
+		 SOAPElement element4 = element13.addChildElement("extBool");
 		 element4.addTextNode("false");
 		 
-		 SOAPElement element5 = soapElement.addChildElement("extNumber");
+		 SOAPElement element5 = element13.addChildElement("extNumber");
 		 element5.addTextNode("-1");
 		 
-		 SOAPElement element6 = soapElement.addChildElement("userModifiable");
+		 SOAPElement element12 = element13.addChildElement("extString");
+		 element12.addTextNode("?");
+		 
+		 SOAPElement element6 = element13.addChildElement("userModifiable");
 		 element6.addTextNode("true");
 		 
-		 SOAPElement element7 = soapElement.addChildElement("userVisible");
+		 SOAPElement element7 = element13.addChildElement("userVisible");
 		 element7.addTextNode("false");
 		 
-		 SOAPElement element8 = soapElement.addChildElement("featureName");
+		 SOAPElement element8 = element13.addChildElement("featureName");
 		 element8.addTextNode("Outgoing SMSs Enabled");
 		 
-		 SOAPElement element9 = soapElement.addChildElement("featureID");
+		 SOAPElement element9 = element13.addChildElement("featureID");
 		 element9.addTextNode("ShortMessageMO-PP");
 		 
-		 SOAPElement element10 = soapElement.addChildElement("featureModel");
+		 SOAPElement element10 = element13.addChildElement("featureModel");
 		 element10.addTextNode("SimpleService.xsd");
 		 
-		 SOAPElement element11 = soapElement.addChildElement("featureOnlyAdmin");
+		 SOAPElement element11 = element13.addChildElement("featureOnlyAdmin");
 		 element11.addTextNode("false");
 		 
 		 soapMessage.saveChanges();

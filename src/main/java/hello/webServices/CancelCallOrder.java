@@ -15,7 +15,6 @@ import org.w3c.dom.NodeList;
 
 import hello.file.Numbers;
 
-//Creating the SOAPMessage body
 public class CancelCallOrder {
 	
 	private static String result;

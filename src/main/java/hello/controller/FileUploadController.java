@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import hello.file.Csv;
 import hello.file.Numbers;
 import hello.storage.StorageFileNotFoundException;
 import hello.storage.StorageService;
@@ -47,22 +52,23 @@ public class FileUploadController {
                 path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                         "serveFile", path.getFileName().toString()).build().toString())
                 .collect(Collectors.toList()));
-   
-        
 
         return "uploadForm";
     }
 
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) throws IOException {
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) throws IOException  {
 
         Resource file = storageService.loadAsResource(filename);
         setName(filename);
         setPath(file.getURL());
         System.out.println(getPath());
         System.out.println(getName());
+
+        //To count
         Numbers.main(null);
+        
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }

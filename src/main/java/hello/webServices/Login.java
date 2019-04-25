@@ -40,10 +40,10 @@ private static String session;
 		 
 		 //make Message's body
 		 SOAPElement element1 = soapElement.addChildElement("userName");
-		 element1.addTextNode("BSSTest2");
+		 element1.addTextNode("test");
 		 
 		 SOAPElement element2 = soapElement.addChildElement("pass");
-		 element2.addTextNode("BSSTest2");
+		 element2.addTextNode("test");
 		 
 		 SOAPElement element3 = soapElement.addChildElement("brandID");
 		 element3.addTextNode("Shatel");

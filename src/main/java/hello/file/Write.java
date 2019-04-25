@@ -10,6 +10,7 @@ import java.util.Random;
 import hello.controller.FileUploadController;
 import hello.controller.SpringMVCController;
 import hello.send.Sending;
+import hello.webServices.AddPackagesSimple;
 import hello.webServices.CancelCallOrder;
 import hello.webServices.ReleaseMsisdn;
 import hello.webServices.UpdateLanguage;
@@ -23,16 +24,26 @@ import java.time.LocalDateTime;
 public class Write {
 	private static int random;
 	private static String data;
-
 	public static void main(String[] args) throws IOException {
-		
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-		LocalDateTime now = LocalDateTime.now();  
+		LocalDateTime now = LocalDateTime.now();
+		
+		if(SpringMVCController.getMethod().equals("addPackagesSimple") && Csv.getCheck() == 1) {
+			Csv.setCheck(2);
+			Random rand = new Random(); 
+			random = rand.nextInt(1000);
+		}
 		
 		//Prepare results for writing in file according to methode's type
 		switch (SpringMVCController.getMethod()) {
-		case "cancelCallOrder":	
+		case "addPackagesSimple":	
+
+				setData(Csv.getMsisdn() +"   "+ Csv.getSID()+"   "+dtf.format(now)+"   "+Csv.getPKGInput()+"   "+Csv.getPKGOutput()+"   "+AddPackagesSimple.getResult()+"   "+AddPackagesSimple.getSaleCode()+"   "+AddPackagesSimple.getTicket());
+
+			break;
+		case "cancelCallOrder":
+			
 			if (Numbers.getCount() == Sending.c) {	
 				
 				Random rand = new Random(); 
@@ -49,7 +60,8 @@ public class Write {
 			}
 			
 			break;
-		case "updateSubscriptionProfileServices":	
+		case "updateSubscriptionProfileServices":
+			
 			if (Numbers.getCount() == Sending.c) {	
 				
 				Random rand = new Random(); 
@@ -67,6 +79,7 @@ public class Write {
 			
 			break;
 		case "msisdn":
+	
 			if (Numbers.getCount() == Sending.c) {	
 				
 				Random rand = new Random(); 
@@ -84,6 +97,7 @@ public class Write {
 			
 			break;
 		case "updateLanguage":
+			
 			if (Numbers.getCount() == Sending.c) {	
 				
 				Random rand = new Random(); 
@@ -103,14 +117,23 @@ public class Write {
 
 		}
 		
-		String path = FileUploadController.getPath().toString().replace("file:/", "");
+		String path;
+		if(SpringMVCController.getMethod().equals("addPackagesSimple")) {
+			path = ChangeName.getPath().replace(".csv", ".txt");
+			path = path.replace("live_reports", "Logs");
+		}
+		else
+			path = FileUploadController.getPath().toString().replace("file:/", "");
+		
         String filePath = path.replace(".txt", "") + "_Log_" + random + ".txt";
-
+        System.out.println(data);
+        System.out.println(filePath);
         appendUsingBufferedWriter(filePath, getData());
+        
+
         System.out.println("DONE");
     }
 	
-	//For writing in the file
 	private static void appendUsingBufferedWriter(String filePath, String text) {
 		File file = new File(filePath);
 		FileWriter fr = null;
@@ -119,7 +142,6 @@ public class Write {
 			// to append to file, you need to initialize FileWriter using below constructor
 			fr = new FileWriter(file, true);
 			br = new BufferedWriter(fr);
-			
 				br.newLine();
 				// you can use write or append method
 				br.write(text);
