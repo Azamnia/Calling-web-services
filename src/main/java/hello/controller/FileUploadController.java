@@ -67,6 +67,7 @@ public class FileUploadController {
         System.out.println(getName());
 
         //To count
+	if(!(getName().contains("Log")))
         Numbers.main(null);
         
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
